@@ -77,12 +77,26 @@ var sumBelow = function(n) {
     return (n + 1) + sumBelow(n + 1);
   }
   return (n - 1) + sumBelow(n - 1);
-
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  if (x === y || (x + 1) === y) {
+    return [];
+  }
+
+  if (x > y) {
+    if ((x - 1) === (y + 1)) {
+      return [x - 1];
+    }
+    return [x - 1].concat(range((x - 1), y));
+  }
+
+  if ((x + 1) === (y - 1)) {
+    return [x + 1];
+  }
+  return [x + 1].concat(range(x + 1, y));
 };
 
 // 7. Compute the exponent of a number.
