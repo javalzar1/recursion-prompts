@@ -148,7 +148,6 @@ var palindrome = function(string) {
   if (endsMatch && string.length >= 3) {
     return palindrome(string.slice(1, last));
   }
-
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
