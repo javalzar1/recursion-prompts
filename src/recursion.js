@@ -110,7 +110,7 @@ var exponent = function(base, exp) {
     var absBase = -1 * base;
     var absExp = -1 * exp;
 
-    if (base < 1) {
+    if (base < 0) {
       if (exp < 1) {
         return -1 * (1 / absBase * exponent(absBase, absExp - 1));
       }
@@ -175,16 +175,74 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  if (y === 1 || (x === 0 && y < 0)) {
+    return 0;
+  }
+  if (x === 0 && y === 0) {
+    return NaN;
+  }
+
+  if (x < 0) {
+    var posX = x - x - x;
+    var posY = y - y - y;
+    if ( y < 0) {
+      if ((posX - posY) < 0) {
+        return x;
+      }
+      return x - y;
+    }
+    if ((posX - y) < 0) {
+      return x;
+    }
+
+  }
+
+  if ((x - y) < 0) {
+    if (x < 0 && y < 0) {
+      return x - y;
+    }
+    if (x < 0) {
+      return modulo(x + y, y)
+    }
+    return x;
+  }
+
+  return modulo(x - y, y);
+
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+  if (x === 0 || y === 0) {
+    return 0;
+  }
+  if (y - 1 === 0) {
+    return x;
+  }
+
+  if (x < 0 && y < 0) {
+    x = x - x - x;
+    y = y - y - y;
+    return x  + multiply(x, y - 1);
+  }
+  if (x < 0 || y < 0) {
+    if (x < 0) {
+      x = x - x - x;
+    }
+    if (y < 0) {
+      y = y - y - y;
+    }
+    var mixedResult = x  + multiply(x, y - 1);
+    return mixedResult - mixedResult - mixedResult;
+  }
+  return x  + multiply(x, y - 1);
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
 var divide = function(x, y) {
+
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
